@@ -1,22 +1,51 @@
 <template>
-  <div class="sidebar bg-white p-3">
-    <ul class="contact-list">
-      <li
-        v-for="(contact, index) in contacts"
-        :key="index"
-        class="contact-item d-flex align-items-center p-2"
-        @click="selectContact(contact)"
-      >
-        <img
-          :src="contact.avatar"
-          alt="avatar"
-          class="rounded-circle me-3"
-          width="45"
-        />
-        <div class="contact-info">
-          <span class="contact-name">{{ contact.name }}</span>
-          <small class="text-muted">Last seen recently</small>
-        </div>
+  <div class="sidebar">
+    <!-- Profile Picture Section -->
+    <div class="profile">
+      <!-- Import the image using relative path -->
+      <img :src="profileImage" alt="Profile" class="profile-img" />
+    </div>
+
+    <ul class="menu">
+      <li>
+        <router-link to="/chat" class="menu-item" active-class="active-item">
+          <i class="fab fa-whatsapp" title="Chat"></i>
+          <span class="tooltip">Chat</span>
+        </router-link>
+      </li>
+      <li>
+        <router-link
+          to="/customer"
+          class="menu-item"
+          active-class="active-item"
+        >
+          <i class="fab fa-telegram-plane" title="Customer"></i>
+          <span class="tooltip">Customer</span>
+        </router-link>
+      </li>
+      <li>
+        <router-link to="/profil" class="menu-item" active-class="active-item">
+          <i class="fab fa-instagram" title="Profil"></i>
+          <span class="tooltip">Profil</span>
+        </router-link>
+      </li>
+      <li>
+        <router-link
+          to="/riwayat_telfon"
+          class="menu-item"
+          active-class="active-item"
+        >
+          <i class="fas fa-phone" title="Riwayat Telfon"></i>
+          <span class="tooltip">Riwayat Telfon</span>
+        </router-link>
+      </li>
+    </ul>
+    <ul class="logout">
+      <li>
+        <router-link to="/" class="menu-item" active-class="active-item">
+          <i class="fas fa-sign-out-alt" title="Logout"></i>
+          <span class="tooltip">Logout</span>
+        </router-link>
       </li>
     </ul>
   </div>
@@ -25,63 +54,126 @@
 <script>
 export default {
   name: "SidebarComponent",
-  props: {
-    contacts: {
-      type: Array,
-      required: true,
-    },
-  },
-  methods: {
-    selectContact(contact) {
-      this.$emit("select-contact", contact);
-    },
+  data() {
+    return {
+      // Set the path to the image located in the assets folder
+      profileImage: require("@/assets/logo.png"), // Assuming the image is named profile.jpg
+    };
   },
 };
 </script>
 
 <style scoped>
+/* Sidebar container */
 .sidebar {
-  width: 300px; /* Sedikit lebih lebar agar tampak proporsional */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 60px; /* Narrower width */
   height: 100vh;
-  border-right: 1px solid #ddd;
-  overflow-y: auto;
+  background: #f0f0f0;
+  color: #333;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  font-family: Arial, sans-serif;
+  align-items: center;
 }
 
-.contact-list {
+/* Profile picture section */
+.profile {
+  margin-bottom: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.profile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Menu list styling for sidebar */
+ul.menu,
+ul.logout {
   list-style: none;
   padding: 0;
   margin: 0;
 }
 
-.contact-item {
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  border-radius: 10px;
+li {
+  margin: 15px 0;
+  font-size: 16px;
 }
 
-.contact-item:hover {
-  background-color: #f0f0f5; /* Warna hover yang halus */
-}
-
-.contact-info {
+.menu-item {
+  color: #0056b3;
+  text-decoration: none;
   display: flex;
-  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  width: 100%;
+  position: relative;
 }
 
-.contact-name {
-  font-weight: 500;
-  color: #333;
-  font-size: 1rem;
+/* Icon styling */
+i {
+  font-size: 28px; /* Increase the size of the icons */
 }
 
-.contact-item img {
-  border: 2px solid #0084ff; /* Tambahkan border biru ala Messenger di avatar */
-  width: 50px;
-  height: 50px;
+/* Tooltip styling */
+.tooltip {
+  position: absolute;
+  left: 60px;
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-50%);
+  transition: opacity 0.3s ease;
 }
 
-.contact-info small {
-  font-size: 0.85rem;
-  color: #aaa; /* Warna teks terakhir dilihat */
+/* Show tooltip on hover */
+.menu-item:hover .tooltip {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Active item styling */
+.active-item {
+  background-color: #0056b3;
+  color: #ffffff;
+  border-left: 4px solid #ffd700;
+}
+
+/* Hover effect for menu items */
+.menu-item:hover {
+  background-color: rgba(0, 86, 179, 0.1);
+  transform: scale(1.1);
+}
+
+/* Click effect */
+.menu-item:active {
+  background-color: #0056b3;
+  color: #ffffff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 50px;
+  }
 }
 </style>

@@ -1,14 +1,7 @@
 <template>
-  <div class="chat-input d-flex align-items-center p-3 bg-light">
-    <i class="bi bi-paperclip mx-2"></i>
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Type a message"
-      v-model="message"
-      @keyup.enter="sendMessage"
-    />
-    <i class="bi bi-send-fill mx-2" @click="sendMessage"></i>
+  <div class="message-input">
+    <input type="text" v-model="newMessage" placeholder="Type your message..." />
+    <button @click="onSend">Send</button>
   </div>
 </template>
 
@@ -16,42 +9,39 @@
 export default {
   data() {
     return {
-      message: "",
+      newMessage: '',
     };
   },
   methods: {
-    sendMessage() {
-      if (this.message.trim()) {
-        this.$emit("send-message", this.message);
-        this.message = "";
-      }
+    onSend() {
+      this.$emit('send', this.newMessage);
+      this.newMessage = '';
     },
   },
 };
 </script>
 
 <style scoped>
-.chat-input {
+.message-input {
+  display: flex;
+  padding: 10px;
   border-top: 1px solid #ddd;
 }
 
-.chat-input input {
-  flex-grow: 1;
-  border: none;
+.message-input input {
+  flex: 1;
   padding: 10px;
-  background-color: #fff;
-  border-radius: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-.chat-input input:focus {
-  outline: none;
-  box-shadow: none;
-}
-
-.bi-paperclip,
-.bi-send-fill {
-  font-size: 1.5rem;
-  color: #aaa;
+.message-input button {
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  margin-left: 10px;
+  border-radius: 5px;
   cursor: pointer;
 }
 </style>
