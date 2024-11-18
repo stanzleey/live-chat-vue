@@ -1,12 +1,22 @@
 <template>
   <div class="contact-list-container">
+    <!-- Chat Title -->
+    <h3 class="chat-title">Chat</h3>
+
     <!-- Search Bar -->
     <input
       type="text"
       v-model="searchTerm"
       placeholder="Search contacts..."
-      class="search-bar"
+      class="search-bar mt-2"
     />
+
+    <!-- Button Group below the Search Bar -->
+    <div class="button-group">
+      <button class="action-button" @click="actionOne">Button 1</button>
+      <button class="action-button" @click="actionTwo">Button 2</button>
+      <button class="action-button" @click="actionThree">Button 3</button>
+    </div>
 
     <!-- Contact List -->
     <div class="contact-list">
@@ -76,11 +86,27 @@ export default {
     addMessage() {
       alert("Add message functionality here.");
     },
+    actionOne() {
+      alert("Button 1 clicked");
+    },
+    actionTwo() {
+      alert("Button 2 clicked");
+    },
+    actionThree() {
+      alert("Button 3 clicked");
+    },
   },
 };
 </script>
 
 <style scoped>
+.chat-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 10px;
+}
+
 .contact-list-container {
   display: flex;
   flex-direction: column;
@@ -105,6 +131,29 @@ export default {
   font-size: 16px;
   background-color: #fff;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  gap: 10px; /* Reduced gap between buttons */
+}
+
+.action-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 25px; /* Make the buttons more oval */
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+  flex: 1; /* Make buttons fill available space equally */
+}
+
+.action-button:hover {
+  background-color: #0056b3;
 }
 
 .contact-list {
@@ -167,11 +216,6 @@ export default {
   text-overflow: ellipsis;
 }
 
-.online-status {
-  font-size: 14px;
-  color: #666;
-}
-
 .contact-actions {
   display: flex;
   align-items: center;
@@ -230,6 +274,15 @@ export default {
   .online-status {
     font-size: 13px;
   }
+
+  .button-group {
+    flex-direction: column;
+  }
+
+  .action-button {
+    width: 100%;
+    margin-bottom: 10px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -261,6 +314,10 @@ export default {
     width: 55px;
     height: 55px;
     font-size: 26px;
+  }
+
+  .action-button {
+    font-size: 14px;
   }
 }
 </style>

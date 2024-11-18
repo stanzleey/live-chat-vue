@@ -134,7 +134,7 @@ export default {
 }
 
 .popup-content {
-  /* background: #fff; */
+  background: #fff;
   width: 90%;
   max-width: 400px;
   padding: 20px;
@@ -151,7 +151,7 @@ export default {
 }
 
 .contact-list {
-  width: 330px;
+  width: 500px;
   background-color: #f5f5f5;
   padding: 20px;
 }
@@ -160,16 +160,15 @@ export default {
   flex: 1;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
   box-sizing: border-box;
   height: 100%; /* Ensure it takes full height */
 }
 
 .chat-messages-container {
+  width: 900px;
   display: flex;
   flex-direction: column;
   flex-grow: 1; /* This will make the chat messages container grow */
-  overflow-y: auto; /* Allow scrolling if content overflows */
 }
 
 .chat-messages {

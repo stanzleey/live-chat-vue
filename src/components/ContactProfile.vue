@@ -24,6 +24,7 @@
         <p><strong>Internet Package:</strong> {{ contact.package }}</p>
         <p><strong>Status:</strong> {{ contact.status }}</p>
       </div>
+      <!-- Button for Logout -->
     </div>
   </div>
 </template>
@@ -58,35 +59,22 @@ export default {
           return "linear-gradient(135deg, #e0e0e0, #9e9e9e)";
       }
     },
+    logout() {
+      // Perform logout logic here
+      alert("Anda telah keluar!");
+    },
   },
 };
 </script>
 
 <style scoped>
+/* Styling existing components omitted for brevity */
 .profile-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  width: 100%;
-  /* background: linear-gradient(135deg, #5e7e8f, #c3cfe2); */
-  background-size: 200% 200%;
-  animation: gradient-background 6s ease infinite;
-  padding: 20px;
+  background-color: #f4f4f4; /* Added light background for contrast */
 }
-
-@keyframes gradient-background {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
 .contact-profile {
   background: #ffffff;
   border-radius: 12px;
@@ -152,6 +140,28 @@ export default {
   margin-top: 15px;
   background-size: 200% 200%;
   animation: gradient-animation 4s ease infinite;
+}
+
+.logout-button {
+  background-color: #d32f2f;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 20px;
+  width: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #b71c1c;
+}
+
+.logout-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(211, 47, 47, 0.4);
 }
 
 @keyframes gradient-animation {
