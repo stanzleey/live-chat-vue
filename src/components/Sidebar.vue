@@ -85,8 +85,8 @@ export default {
 /* Profile picture section */
 .profile {
   margin-bottom: 20px;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   overflow: hidden;
 }
@@ -126,7 +126,7 @@ li {
 
 /* Icon styling */
 i {
-  font-size: 28px; /* Increase the size of the icons */
+  font-size: 24px; /* Increase the size of the icons */
 }
 
 /* Tooltip styling */

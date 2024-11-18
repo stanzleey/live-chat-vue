@@ -26,9 +26,6 @@
           <!-- Contact Info -->
           <div class="contact-info">
             <span class="contact-name">{{ contact.name }}</span>
-            <span class="online-status">{{
-              contact.online ? "Online" : "Offline"
-            }}</span>
           </div>
 
           <!-- Read Receipt -->
@@ -42,7 +39,6 @@
         </li>
       </ul>
     </div>
-
     <!-- Add Message Button as Floating Icon -->
     <button @click="addMessage" class="floating-add-message-button">
       <i class="fas fa-plus"></i>

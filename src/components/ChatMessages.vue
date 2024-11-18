@@ -8,7 +8,7 @@
         style="background: #0056b3"
       >
         <div class="flex items-center space-x-4">
-          <h1 class="text-white text-2xl font-semibold cursor-pointer">
+          <h1 class="text-white text-3xl font-semibold cursor-pointer">
             {{ username }}
           </h1>
         </div>
@@ -26,7 +26,7 @@
           <div v-for="(msg, index) in messages" :key="msg.message_id">
             <div
               v-if="shouldShowDate(index)"
-              class="text-center text-gray-500 text-sm mb-2"
+              class="text-center text-gray-500 text-lg mb-2"
             >
               {{ formatDate(msg.date) }}
             </div>
@@ -39,7 +39,7 @@
             >
               <div v-if="msg.sender_id === currentUserId" class="ml-auto">
                 <div
-                  class="text-white p-3 rounded-lg max-w-xs break-words relative"
+                  class="text-white p-3 rounded-lg max-w-xs break-words relative text-lg"
                   style="
                     background: linear-gradient(to right, #4e54c8, #8f94fb);
                   "
@@ -63,7 +63,7 @@
               </div>
               <div v-else class="mr-auto rounded-lg">
                 <div
-                  class="bg-gray-200 text-gray-700 p-3 rounded-lg max-w-xs break-words relative"
+                  class="bg-gray-200 text-gray-700 p-3 rounded-lg max-w-xs break-words relative text-lg"
                 >
                   {{ msg.text }}
                   <div class="text-xs text-gray-500 mt-1">
@@ -104,11 +104,11 @@
           v-model="newMessage"
           type="text"
           placeholder="Type a message..."
-          class="flex-grow bg-gray-100 border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out w-full max-w-screen-md"
+          class="flex-grow bg-gray-100 border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 text-lg transition duration-150 ease-in-out w-full max-w-screen-md"
         />
         <button
           @click="sendMessage"
-          class="ml-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out"
+          class="ml-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out text-lg"
         >
           <i class="fas fa-paper-plane"></i>
         </button>
