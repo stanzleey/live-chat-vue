@@ -69,7 +69,7 @@ export default {
   align-items: center;
   height: 100vh;
   width: 100%;
-  background: linear-gradient(135deg, #5e7e8f, #c3cfe2);
+  /* background: linear-gradient(135deg, #5e7e8f, #c3cfe2); */
   background-size: 200% 200%;
   animation: gradient-background 6s ease infinite;
   padding: 20px;

@@ -134,7 +134,7 @@ export default {
 }
 
 .popup-content {
-  background: #fff;
+  /* background: #fff; */
   width: 90%;
   max-width: 400px;
   padding: 20px;
