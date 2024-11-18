@@ -1,9 +1,7 @@
 <template>
   <div class="app-container">
     <!-- Contact List -->
-    <div 
-      class="contact-list" 
-      v-if="!isMobileView || !showChatOnly">
+    <div class="contact-list" v-if="!isMobileView || !showChatOnly">
       <ContactList
         :contacts="contacts"
         @contact-selected="handleContactSelect"
@@ -11,24 +9,26 @@
     </div>
 
     <!-- Chat Section -->
-    <div 
-      class="chat-section" 
-      v-if="selectedContact">
-      <div 
-        class="chat-messages-container"
-        v-if="!isMobileView || showChatOnly">
+    <div class="chat-section" v-if="selectedContact">
+      <div class="chat-messages-container" v-if="!isMobileView || showChatOnly">
         <ChatMessages :messages="chatMessages" />
-        <!-- Profile and Chat -->
-        <div 
-          class="profile-and-chat"
-          v-if="!isMobileView">
-          <ContactProfile :contact="selectedContact" />
-        </div>
+        <!-- Trigger Profile Popup -->
+        <button class="view-profile-btn" @click="showProfilePopup = true">
+          View Profile
+        </button>
       </div>
     </div>
 
     <div v-else class="no-contact-selected">
       <h2>Please select a contact to start chatting.</h2>
+    </div>
+
+    <!-- Contact Profile Popup -->
+    <div class="profile-popup" v-if="showProfilePopup">
+      <div class="popup-content">
+        <button class="close-btn" @click="showProfilePopup = false">X</button>
+        <ContactProfile :contact="selectedContact" />
+      </div>
     </div>
   </div>
 </template>
@@ -48,12 +48,12 @@ export default {
   data() {
     return {
       contacts: [
-        { id: 1, name: "Diana" },
-        { id: 2, name: "Jane Smith" },
-        { id: 3, name: "Alice Brown" },
-        { id: 4, name: "Mark Lee" },
-        { id: 5, name: "James" },
-        { id: 6, name: "Sule" },
+        { id: 1, name: "Diana", lastActivityTime: "12:30 PM" },
+        { id: 2, name: "Jane Smith", lastActivityTime: "3:45 PM" },
+        { id: 3, name: "Alice Brown", lastActivityTime: "5:00 PM" },
+        { id: 4, name: "Mark Lee", lastActivityTime: "Yesterday" },
+        { id: 5, name: "James", lastActivityTime: "12:00 PM" },
+        { id: 6, name: "Sule", lastActivityTime: "11:30 AM" },
       ],
       messages: {
         1: [
@@ -68,7 +68,8 @@ export default {
       chatMessages: [],
       newMessage: "",
       selectedContact: null,
-      showChatOnly: false, // Controls whether to show only chat on mobile
+      showChatOnly: false,
+      showProfilePopup: false, // Controls visibility of the profile pop-up// Controls whether to show only chat on mobile
     };
   },
   computed: {
@@ -119,7 +120,31 @@ export default {
 
 <style scoped>
 /* Same styles as before */
+.profile-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.popup-content {
+  background: #fff;
+  width: 90%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+/* Add responsive styles */
 .app-container {
+  margin-left: 65px;
   display: flex;
   flex-direction: row;
   height: 100vh;
@@ -132,9 +157,30 @@ export default {
 }
 
 .chat-section {
-  flex-grow: 1;
+  flex: 1;
   display: flex;
   flex-direction: column;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  height: 100%; /* Ensure it takes full height */
+}
+
+.chat-messages-container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* This will make the chat messages container grow */
+  overflow-y: auto; /* Allow scrolling if content overflows */
+}
+
+.chat-messages {
+  flex-grow: 1;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Ensure new messages are aligned to the bottom */
 }
 
 .no-contact-selected {
@@ -157,6 +203,12 @@ export default {
 
   .chat-section {
     width: 100%; /* Full width on mobile */
+  }
+
+  .chat-messages-container {
+    height: calc(
+      100vh - 100px
+    ); /* Adjust this based on the header height or other elements */
   }
 }
 </style>
