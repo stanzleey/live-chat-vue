@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <div v-else class="no-contact-selected">
+    <div v-if="!selectedContact && !isMobileView" class="no-contact-selected">
       <h2>Please select a contact to start chatting.</h2>
     </div>
 
@@ -142,7 +142,7 @@ export default {
 
 /* Main Container */
 .app-container {
-  margin-left: 55px;
+  margin-left: 50px;
   display: flex;
   flex-direction: row;
   height: 100vh;
@@ -151,7 +151,7 @@ export default {
 /* Contact List */
 .contact-list {
   height: auto;
-  width: 500px;
+  width: 430px;
   background-color: #f5f5f5;
   padding: 20px;
   overflow-y: auto;
@@ -185,7 +185,7 @@ export default {
 }
 
 .chat-messages-container {
-  width: 900px;
+  width: 885px;
   display: flex;
   flex-direction: column;
   flex-grow: 1; /* This will make the chat messages container grow */
@@ -199,7 +199,7 @@ export default {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end; /* Ensure new messages are aligned to the bottom */
+  justify-content: flex-end;
 }
 
 .no-contact-selected {

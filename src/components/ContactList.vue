@@ -101,56 +101,56 @@ export default {
 
 <style scoped>
 .chat-title {
-  font-size: 24px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 600;
   color: #333;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .contact-list-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding: 20px;
+  padding: 12px;
   background-color: #f9f9f9;
   width: 100%;
-  max-width: 450px;
+  max-width: 400px;
   margin: auto;
   overflow: hidden;
-  border-radius: 15px;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  box-shadow: 1px 0 6px rgba(0, 0, 0, 0.1);
   position: relative;
 }
 
 .search-bar {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 20px;
+  padding: 10px;
+  margin-bottom: 16px;
   border: 1px solid #ddd;
-  border-radius: 10px;
-  font-size: 16px;
+  border-radius: 8px;
+  font-size: 14px;
   background-color: #fff;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .button-group {
+  align-items: center;
   display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-  gap: 10px; /* Reduced gap between buttons */
+  justify-content: flex-start;
+  margin-bottom: 16px;
+  gap: 8px;
 }
 
 .action-button {
   background-color: #a3a3a359;
-  font-size: 30px;
+  font-size: 14px;
   color: white;
   border: none;
-  padding: 10px 15px;
-  border-radius: 25px; /* Make the buttons more oval */
+  padding: 8px 12px;
+  border-radius: 12px;
   cursor: pointer;
-  font-size: 16px;
-  transition: background-color 0.3s;
-  flex: 1; /* Make buttons fill available space equally */
+  transition: background-color 0.3s ease;
+  white-space: nowrap;
 }
 
 .action-button:hover {
@@ -159,7 +159,6 @@ export default {
 
 .contact-list {
   flex: 1;
-  /* overflow-y: auto; */
 }
 
 .contact-list ul {
@@ -171,12 +170,12 @@ export default {
 .contact-item {
   display: flex;
   align-items: center;
-  padding: 14px;
+  padding: 10px;
   background-color: #fff;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   border-bottom: 1px solid #ddd;
 }
 
@@ -195,22 +194,22 @@ export default {
 }
 
 .profile-photo {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  margin-right: 16px;
+  margin-right: 12px;
   border: 2px solid #ddd;
 }
 
 .contact-info {
   display: flex;
   flex-direction: column;
-  flex: 2;
+  flex: 1;
 }
 
 .contact-name {
-  font-weight: 700;
-  font-size: 18px;
+  font-weight: 600;
+  font-size: 14px;
   color: #333;
   white-space: nowrap;
   overflow: hidden;
@@ -224,22 +223,21 @@ export default {
 
 .read-receipt {
   color: #007bff;
-  margin-right: 12px;
 }
 
 .floating-add-message-button {
   position: absolute;
-  bottom: 24px;
-  right: 24px;
-  width: 60px;
-  height: 60px;
+  bottom: 16px;
+  right: 16px;
+  width: 50px;
+  height: 50px;
   background-color: #007bff;
   color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 28px;
+  font-size: 22px;
   border: none;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   cursor: pointer;
@@ -253,72 +251,52 @@ export default {
 /* Responsive Design */
 @media (max-width: 768px) {
   .contact-list-container {
-    padding: 16px;
-    max-width: 100%;
-  }
-
-  .contact-item {
-    padding: 12px;
-    flex-direction: column;
-    align-items: flex-start;
+    padding: 10px;
   }
 
   .profile-photo {
-    width: 45px;
-    height: 45px;
+    width: 35px;
+    height: 35px;
   }
 
   .contact-name {
-    font-size: 16px;
-  }
-
-  .online-status {
-    font-size: 13px;
-  }
-
-  .button-group {
-    flex-direction: column;
+    font-size: 12px;
   }
 
   .action-button {
-    width: 100%;
-    margin-bottom: 10px;
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  .floating-add-message-button {
+    width: 45px;
+    height: 45px;
+    font-size: 20px;
   }
 }
 
 @media (max-width: 480px) {
-  .contact-list-container {
-    padding: 14px;
-    border-radius: 0;
-    box-shadow: none;
-  }
-
   .contact-item {
-    padding: 10px;
-    flex-direction: row;
+    padding: 8px;
   }
 
   .profile-photo {
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
   }
 
   .contact-name {
-    font-size: 15px;
-  }
-
-  .online-status {
-    font-size: 12px;
+    font-size: 11px;
   }
 
   .floating-add-message-button {
-    width: 55px;
-    height: 55px;
-    font-size: 26px;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
   }
 
   .action-button {
-    font-size: 14px;
+    font-size: 10px;
   }
 }
 </style>
