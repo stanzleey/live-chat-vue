@@ -11,6 +11,12 @@
           <h1 class="text-white text-3xl font-semibold cursor-pointer">
             {{ username }}
           </h1>
+          <button
+            @click="showProfile = true"
+            class="text-white text-lg bg-blue-600 px-3 py-1 rounded-lg hover:bg-blue-700 transition"
+          >
+            View Profile
+          </button>
         </div>
         <div class="flex items-center space-x-4">
           <!-- Buttons -->
@@ -98,7 +104,30 @@
         >
           <i class="fas fa-camera text-xl"></i>
         </button>
-
+        <!-- Contact Profile Popup -->
+        <div
+          v-if="showProfile"
+          class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center"
+        >
+          <div class="bg-white p-6 rounded-lg shadow-lg w-96">
+            <h2 class="text-xl font-bold mb-4">Contact Profile</h2>
+            <p class="text-gray-700 mb-4">
+              <strong>Name:</strong> {{ contactProfile.name }}
+            </p>
+            <p class="text-gray-700 mb-4">
+              <strong>Phone:</strong> {{ contactProfile.phone }}
+            </p>
+            <p class="text-gray-700 mb-4">
+              <strong>Email:</strong> {{ contactProfile.email }}
+            </p>
+            <button
+              @click="showProfile = false"
+              class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+            >
+              Close
+            </button>
+          </div>
+        </div>
         <!-- Message Input and Send Button -->
         <input
           v-model="newMessage"
@@ -126,11 +155,16 @@ import axios from "axios";
 export default {
   setup() {
     const username = ref("Diana");
+    const showProfile = ref(false);
     const messages = ref([]);
     const newMessage = ref("");
     const currentUserId = ref("user_3");
     const chatContainer = ref(null);
-
+    const contactProfile = ref({
+      name: "John Doe",
+      phone: "+1234567890",
+      email: "john.doe@example.com",
+    });
     // In the sendMessage function:
     const sendMessage = () => {
       if (newMessage.value.trim()) {
@@ -275,6 +309,8 @@ export default {
       formatDate,
       formatTime,
       chatContainer,
+      showProfile,
+      contactProfile,
     };
   },
 };

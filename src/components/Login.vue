@@ -36,7 +36,7 @@ export default {
         this.username === hardcodedUsername &&
         this.password === hardcodedPassword
       ) {
-        this.$router.push("/dashboard");
+        this.$router.push("/chat");
       } else {
         this.error = "Invalid username or password";
       }

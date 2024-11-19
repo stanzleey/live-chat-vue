@@ -13,9 +13,9 @@
       <div class="chat-messages-container" v-if="!isMobileView || showChatOnly">
         <ChatMessages :messages="chatMessages" />
         <!-- Trigger Profile Popup -->
-        <button class="view-profile-btn" @click="showProfilePopup = true">
+        <!-- <button class="view-profile-btn" @click="showProfilePopup = true">
           View Profile
-        </button>
+        </button> -->
       </div>
     </div>
 
