@@ -13,9 +13,9 @@
 
     <!-- Button Group below the Search Bar -->
     <div class="button-group">
-      <button class="action-button" @click="actionOne">Button 1</button>
-      <button class="action-button" @click="actionTwo">Button 2</button>
-      <button class="action-button" @click="actionThree">Button 3</button>
+      <button class="action-button" @click="actionOne">Semua</button>
+      <button class="action-button" @click="actionTwo">Belum dibaca</button>
+      <button class="action-button" @click="actionThree">Group</button>
     </div>
 
     <!-- Contact List -->
@@ -141,7 +141,8 @@ export default {
 }
 
 .action-button {
-  background-color: #007bff;
+  background-color: #a3a3a359;
+  font-size: 30px;
   color: white;
   border: none;
   padding: 10px 15px;
@@ -158,7 +159,7 @@ export default {
 
 .contact-list {
   flex: 1;
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 .contact-list ul {

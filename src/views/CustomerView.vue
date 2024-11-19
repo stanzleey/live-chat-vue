@@ -13,9 +13,9 @@
       <div class="chat-messages-container" v-if="!isMobileView || showChatOnly">
         <ChatMessages :messages="chatMessages" />
         <!-- Trigger Profile Popup -->
-        <button class="view-profile-btn" @click="showProfilePopup = true">
+        <!-- <button class="view-profile-btn" @click="showProfilePopup = true">
           View Profile
-        </button>
+        </button> -->
       </div>
     </div>
 
@@ -51,9 +51,6 @@ export default {
         { id: 1, name: "Diana", lastActivityTime: "12:30 PM" },
         { id: 2, name: "Jane Smith", lastActivityTime: "3:45 PM" },
         { id: 3, name: "Alice Brown", lastActivityTime: "5:00 PM" },
-        { id: 4, name: "Mark Lee", lastActivityTime: "Yesterday" },
-        { id: 5, name: "James", lastActivityTime: "12:00 PM" },
-        { id: 6, name: "Sule", lastActivityTime: "11:30 AM" },
       ],
       messages: {
         1: [
@@ -69,7 +66,7 @@ export default {
       newMessage: "",
       selectedContact: null,
       showChatOnly: false,
-      showProfilePopup: false, // Controls visibility of the profile pop-up// Controls whether to show only chat on mobile
+      showProfilePopup: false,
     };
   },
   computed: {
@@ -119,7 +116,7 @@ export default {
 </script>
 
 <style scoped>
-/* Same styles as before */
+/* Profile Popup Styles */
 .profile-popup {
   position: fixed;
   top: 0;
@@ -142,20 +139,43 @@ export default {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   position: relative;
 }
-/* Add responsive styles */
+
+/* Main Container */
 .app-container {
-  margin-left: 65px;
+  margin-left: 55px;
   display: flex;
   flex-direction: row;
   height: 100vh;
 }
 
+/* Contact List */
 .contact-list {
+  height: auto;
   width: 500px;
   background-color: #f5f5f5;
   padding: 20px;
+  overflow-y: auto;
 }
 
+/* Customize Scrollbar */
+.contact-list::-webkit-scrollbar {
+  width: 8px; /* Set the width of the scrollbar */
+}
+
+.contact-list::-webkit-scrollbar-track {
+  background: transparent; /* Make the track transparent */
+}
+
+.contact-list::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.2); /* Set the color of the thumb */
+  border-radius: 10px; /* Optional: rounded corners */
+}
+
+.contact-list::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(0, 0, 0, 0.5); /* Darker thumb when hovered */
+}
+
+/* Chat Section */
 .chat-section {
   flex: 1;
   display: flex;
@@ -190,7 +210,7 @@ export default {
   font-size: 1.5rem;
 }
 
-/* Add responsive styles */
+/* Responsive Styles for Mobile */
 @media screen and (max-width: 768px) {
   .app-container {
     flex-direction: column;
@@ -198,6 +218,8 @@ export default {
 
   .contact-list {
     width: 100%; /* Full width on mobile */
+    height: 300px; /* Limit height for contact list on mobile */
+    overflow-y: auto;
   }
 
   .chat-section {
@@ -206,8 +228,25 @@ export default {
 
   .chat-messages-container {
     height: calc(
-      100vh - 100px
-    ); /* Adjust this based on the header height or other elements */
+      100vh - 180px
+    ); /* Adjust height of chat messages container to fit screen */
+  }
+
+  .chat-messages {
+    padding: 10px;
+    height: 100%; /* Ensure it takes full height */
+    /* overflow-y: auto; */
+  }
+
+  .view-profile-btn {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+    background: #007bff;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
   }
 }
 </style>

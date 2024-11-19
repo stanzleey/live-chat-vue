@@ -126,7 +126,7 @@ li {
 
 /* Icon styling */
 i {
-  font-size: 24px; /* Increase the size of the icons */
+  font-size: 20px; /* Increase the size of the icons */
 }
 
 /* Tooltip styling */
