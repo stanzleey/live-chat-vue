@@ -105,7 +105,9 @@
           type="text"
           placeholder="Type a message..."
           class="flex-grow bg-gray-100 border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 text-lg transition duration-150 ease-in-out w-full max-w-screen-md"
+          @keyup.enter="sendMessage"
         />
+
         <button
           @click="sendMessage"
           class="ml-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out text-lg"
