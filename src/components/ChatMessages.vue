@@ -5,7 +5,7 @@
     >
       <header
         class="w-full p-3 flex items-center justify-between border-b border-gray-200"
-        style="background: #f5f5f5"
+        style="background:blue"
       >
         <div class="flex items-center space-x-3">
           <h1 class="text-black text-lg md:text-2xl font-thin cursor-pointer">
