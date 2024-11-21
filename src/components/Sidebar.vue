@@ -1,8 +1,7 @@
 <template>
-  <div class="sidebar">
+  <div :class="['sidebar', { mobile: isMobile }]">
     <!-- Profile Picture Section -->
-    <div class="profile">
-      <!-- Import the image using relative path -->
+    <div v-if="!isMobile" class="profile">
       <img :src="profileImage" alt="Profile" class="profile-img" />
     </div>
 
@@ -10,6 +9,7 @@
       <li>
         <router-link to="/chat" class="menu-item" active-class="active-item">
           <i class="fab fa-whatsapp" title="Chat"></i>
+          <span v-if="unreadChats > 0" class="badge">{{ unreadChats }}</span>
           <span class="tooltip">Chat</span>
         </router-link>
       </li>
@@ -40,6 +40,7 @@
         </router-link>
       </li>
     </ul>
+
     <ul class="logout">
       <li>
         <router-link to="/" class="menu-item" active-class="active-item">
@@ -56,20 +57,38 @@ export default {
   name: "SidebarComponent",
   data() {
     return {
-      // Set the path to the image located in the assets folder
-      profileImage: require("@/assets/logo.png"), // Assuming the image is named profile.jpg
+      profileImage: require("@/assets/logo.png"),
+      unreadChats: 5,
+      isMobile: false, // Detect mobile view
     };
+  },
+  methods: {
+    fetchUnreadChats() {
+      setTimeout(() => {
+        this.unreadChats = Math.floor(Math.random() * 10);
+      }, 1000);
+    },
+    checkMobileView() {
+      this.isMobile = window.innerWidth <= 768;
+    },
+  },
+  mounted() {
+    this.fetchUnreadChats();
+    this.checkMobileView();
+    window.addEventListener("resize", this.checkMobileView);
+  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.checkMobileView);
   },
 };
 </script>
 
 <style scoped>
-/* Sidebar container */
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
-  width: 60px; /* Narrower width */
+  width: 60px;
   height: 100vh;
   background: #f0f0f0;
   color: #333;
@@ -80,9 +99,20 @@ export default {
   z-index: 100;
   font-family: Arial, sans-serif;
   align-items: center;
+  transition: all 0.3s ease-in-out;
 }
 
-/* Profile picture section */
+.sidebar.mobile {
+  flex-direction: row;
+  bottom: 0;
+  top: auto;
+  width: 100%;
+  height: 60px;
+  padding: 0;
+  justify-content: space-evenly;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+}
+
 .profile {
   margin-bottom: 20px;
   width: 40px;
@@ -98,12 +128,19 @@ export default {
   border-radius: 50%;
 }
 
-/* Menu list styling for sidebar */
-ul.menu,
-ul.logout {
+.menu,
+.logout {
   list-style: none;
   padding: 0;
   margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sidebar.mobile .menu,
+.sidebar.mobile .logout {
+  flex-direction: row;
 }
 
 li {
@@ -124,12 +161,17 @@ li {
   position: relative;
 }
 
-/* Icon styling */
-i {
-  font-size: 20px; /* Increase the size of the icons */
+.sidebar.mobile .menu-item {
+  margin: 0 10px; /* Tambahkan jarak antar menu-item */
+  padding: 5px 8px; /* Sesuaikan padding untuk elemen */
+  flex: 1; /* Elemen akan menyebar secara merata */
+  text-align: center; /* Tengah elemen */
 }
 
-/* Tooltip styling */
+i {
+  font-size: 20px;
+}
+
 .tooltip {
   position: absolute;
   left: 60px;
@@ -145,35 +187,52 @@ i {
   transition: opacity 0.3s ease;
 }
 
-/* Show tooltip on hover */
 .menu-item:hover .tooltip {
   opacity: 1;
   visibility: visible;
 }
 
-/* Active item styling */
+.badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
 .active-item {
   background-color: #0056b3;
   color: #ffffff;
   border-left: 4px solid #ffd700;
 }
 
-/* Hover effect for menu items */
+.sidebar.mobile .active-item {
+  border-left: none;
+  border-top: 4px solid #ffd700;
+}
+
 .menu-item:hover {
   background-color: rgba(0, 86, 179, 0.1);
   transform: scale(1.1);
 }
 
-/* Click effect */
 .menu-item:active {
   background-color: #0056b3;
   color: #ffffff;
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
-  .sidebar {
-    width: 50px;
+  .tooltip {
+    display: none;
   }
 }
 </style>

@@ -4,35 +4,55 @@
       class="flex-grow flex flex-col bg-white border-l border-gray-200 overflow-hidden"
     >
       <header
-        class="w-full p-4 flex items-center justify-between border-b border-gray-200"
-        style="background: #0056b3"
+        class="w-full p-3 flex items-center justify-between border-b border-gray-200"
+        style="background: #f5f5f5"
       >
-        <div class="flex items-center space-x-4">
-          <h1 class="text-white text-3xl font-semibold cursor-pointer">
+        <div class="flex items-center space-x-3">
+          <h1 class="text-black text-lg md:text-2xl font-thin cursor-pointer">
             {{ username }}
           </h1>
+        </div>
+        <div class="flex items-center space-x-3">
+          <button
+            @click="toggleProfileMenu"
+            class="text-black text-lg md:text-xl focus:outline-none hover:text-blue-300"
+          >
+            <i
+              :class="{
+                'fas fa-bars': !isMenuOpen,
+                'fas fa-times': isMenuOpen,
+              }"
+            ></i>
+          </button>
+        </div>
+      </header>
+
+      <!-- Sidebar Menu -->
+      <div
+        v-if="isMenuOpen"
+        class="absolute top-12 right-3 bg-white shadow-md w-40 z-50 border rounded-lg"
+      >
+        <div class="p-3">
+          <h2 class="text-sm font-bold mb-2">Menu</h2>
           <button
             @click="showProfile = true"
-            class="text-white text-lg bg-blue-600 px-3 py-1 rounded-lg hover:bg-blue-700 transition"
+            class="block w-full text-left text-gray-700 hover:text-blue-500 transition text-sm"
           >
             View Profile
           </button>
         </div>
-        <div class="flex items-center space-x-4">
-          <!-- Buttons -->
-        </div>
-      </header>
+      </div>
 
       <!-- Chat Messages -->
       <div
-        class="flex-grow p-4 overflow-y-auto max-h-[calc(100vh-128px)]"
+        class="flex-grow p-3 overflow-y-auto max-h-[calc(100vh-128px)]"
         ref="chatContainer"
       >
-        <div class="space-y-4">
+        <div class="space-y-3">
           <div v-for="(msg, index) in messages" :key="msg.message_id">
             <div
               v-if="shouldShowDate(index)"
-              class="text-center text-gray-500 text-lg mb-2"
+              class="text-center text-gray-500 text-xs md:text-sm mb-2"
             >
               {{ formatDate(msg.date) }}
             </div>
@@ -45,10 +65,8 @@
             >
               <div v-if="msg.sender_id === currentUserId" class="ml-auto">
                 <div
-                  class="text-white p-3 rounded-lg max-w-xs break-words relative text-lg"
-                  style="
-                    background: linear-gradient(to right, #4e54c8, #8f94fb);
-                  "
+                  class="text-white p-2 md:p-3 rounded-lg max-w-xs break-words relative text-sm md:text-base"
+                  style="background: #0056b3"
                 >
                   {{ msg.text }}
                   <div
@@ -69,7 +87,7 @@
               </div>
               <div v-else class="mr-auto rounded-lg">
                 <div
-                  class="bg-gray-200 text-gray-700 p-3 rounded-lg max-w-xs break-words relative text-lg"
+                  class="bg-gray-200 text-gray-700 p-2 md:p-3 rounded-lg max-w-xs break-words relative text-sm md:text-base"
                 >
                   {{ msg.text }}
                   <div class="text-xs text-gray-500 mt-1">
@@ -81,69 +99,93 @@
           </div>
         </div>
       </div>
-
-      <!-- Footer - Input Area -->
       <footer
-        class="bg-white p-4 flex items-center border-t border-gray-200 shadow-md space-x-4"
+        class="bg-white p-3 flex items-center border-t border-gray-200 shadow-md space-x-3"
       >
         <button
           class="text-gray-500 hover:text-blue-500 transition duration-300"
           @click="handleClick"
         >
-          <i class="fas fa-smile text-xl"></i>
+          <i class="fas fa-smile text-base"></i>
         </button>
         <button
           class="text-gray-500 hover:text-blue-500 transition duration-300"
           @click="handleClick"
         >
-          <i class="fas fa-paperclip text-xl"></i>
+          <i class="fas fa-paperclip text-base"></i>
         </button>
         <button
           class="text-gray-500 hover:text-blue-500 transition duration-300"
           @click="handleClick"
         >
-          <i class="fas fa-camera text-xl"></i>
+          <i class="fas fa-camera text-base"></i>
         </button>
+
         <!-- Contact Profile Popup -->
         <div
           v-if="showProfile"
           class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center"
         >
-          <div class="bg-white p-6 rounded-lg shadow-lg w-96">
-            <h2 class="text-xl font-bold mb-4">Contact Profile</h2>
-            <p class="text-gray-700 mb-4">
+          <div class="bg-white p-5 rounded-lg shadow-lg w-80">
+            <h2 class="text-lg font-bold mb-3">Contact Profile</h2>
+            <p class="text-gray-700 mb-3 text-sm">
               <strong>Name:</strong> {{ contactProfile.name }}
             </p>
-            <p class="text-gray-700 mb-4">
+            <p class="text-gray-700 mb-3 text-sm">
               <strong>Phone:</strong> {{ contactProfile.phone }}
             </p>
-            <p class="text-gray-700 mb-4">
+            <p class="text-gray-700 mb-3 text-sm">
               <strong>Email:</strong> {{ contactProfile.email }}
             </p>
             <button
               @click="showProfile = false"
-              class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+              class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm"
             >
               Close
             </button>
           </div>
         </div>
+
         <!-- Message Input and Send Button -->
         <input
           v-model="newMessage"
           type="text"
           placeholder="Type a message..."
-          class="flex-grow bg-gray-100 border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 text-lg transition duration-150 ease-in-out w-full max-w-screen-md"
+          class="flex-grow bg-gray-100 border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm md:text-base transition duration-150 ease-in-out w-full max-w-screen-md"
           @keyup.enter="sendMessage"
         />
 
         <button
           @click="sendMessage"
-          class="ml-2 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out text-lg"
+          class="ml-2 bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out text-sm"
         >
           <i class="fas fa-paper-plane"></i>
         </button>
       </footer>
+      <!-- Contact Profile Popup -->
+      <div
+        v-if="showProfile"
+        class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center"
+      >
+        <div class="bg-white p-5 rounded-lg shadow-lg w-80">
+          <h2 class="text-lg font-bold mb-3">Contact Profile</h2>
+          <p class="text-gray-700 mb-3 text-sm">
+            <strong>Name:</strong> {{ contactProfile.name }}
+          </p>
+          <p class="text-gray-700 mb-3 text-sm">
+            <strong>Phone:</strong> {{ contactProfile.phone }}
+          </p>
+          <p class="text-gray-700 mb-3 text-sm">
+            <strong>Email:</strong> {{ contactProfile.email }}
+          </p>
+          <button
+            @click="showProfile = false"
+            class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm"
+          >
+            Close
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -155,11 +197,15 @@ import axios from "axios";
 export default {
   setup() {
     const username = ref("Diana");
+    const isMenuOpen = ref(false);
     const showProfile = ref(false);
     const messages = ref([]);
     const newMessage = ref("");
     const currentUserId = ref("user_3");
     const chatContainer = ref(null);
+    const toggleProfileMenu = () => {
+      isMenuOpen.value = !isMenuOpen.value;
+    };
     const contactProfile = ref({
       name: "John Doe",
       phone: "+1234567890",
@@ -311,6 +357,8 @@ export default {
       chatContainer,
       showProfile,
       contactProfile,
+      isMenuOpen,
+      toggleProfileMenu,
     };
   },
 };

@@ -1,7 +1,12 @@
 <template>
   <div class="contact-list-container">
-    <!-- Chat Title -->
-    <h3 class="chat-title">Chat</h3>
+    <!-- Chat Title with Add Chat Button -->
+    <div class="chat-header">
+      <h3 class="chat-title">Chat</h3>
+      <button @click="addChat" class="add-chat-button">
+        <i class="fas fa-plus"></i>
+      </button>
+    </div>
 
     <!-- Search Bar -->
     <input
@@ -31,28 +36,22 @@
           ]"
         >
           <!-- Profile Photo -->
-          <img :src="contact.photo" alt="Profile Photo" class="profile-photo" />
+          <img
+            :src="contact.profilePhoto"
+            alt="Profile Photo"
+            class="profile-photo"
+          />
 
           <!-- Contact Info -->
           <div class="contact-info">
             <span class="contact-name">{{ contact.name }}</span>
-          </div>
-
-          <!-- Read Receipt -->
-          <div class="contact-actions">
-            <span class="read-receipt">
-              <i
-                :class="contact.read ? 'fas fa-check-double' : 'fas fa-check'"
-              ></i>
-            </span>
+            <span class="contact-message">{{ contact.message }}</span>
+            <span class="contact-time">{{ contact.lastMessageTime }}</span>
           </div>
         </li>
       </ul>
     </div>
     <!-- Add Message Button as Floating Icon -->
-    <button @click="addMessage" class="floating-add-message-button">
-      <i class="fas fa-plus"></i>
-    </button>
   </div>
 </template>
 
@@ -100,25 +99,67 @@ export default {
 </script>
 
 <style scoped>
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  position: relative;
+}
+.contact-message {
+  font-size: 12px;
+  color: #555;
+  margin-top: 4px;
+  white-space: nowrap; /* Prevent wrapping */
+  overflow: hidden; /* Hide overflow text */
+  text-overflow: ellipsis; /* Add ellipsis (...) for overflow text */
+}
+.contact-time {
+  font-size: 11px;
+  color: #888;
+  position: absolute;
+  top: 0;
+  right: 0;
+  white-space: nowrap;
+}
+
 .chat-title {
   font-size: 18px;
   font-weight: 600;
   color: #333;
-  margin-bottom: 8px;
+  margin: 0;
 }
 
+.chat-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.add-chat-button {
+  background-color: #007bff;
+  color: white;
+  font-size: 14px;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-chat-button:hover {
+  background-color: #0056b3;
+}
 .contact-list-container {
   display: flex;
   flex-direction: column;
   height: 100vh;
   padding: 12px;
-  background-color: #f9f9f9;
+  background-color: transparent;
   width: 100%;
   max-width: 400px;
   margin: auto;
   overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 1px 0 6px rgba(0, 0, 0, 0.1);
   position: relative;
 }
 
@@ -142,9 +183,9 @@ export default {
 }
 
 .action-button {
-  background-color: #a3a3a359;
+  background-color: white;
   font-size: 14px;
-  color: white;
+  color: black;
   border: none;
   padding: 8px 12px;
   border-radius: 12px;
@@ -184,13 +225,13 @@ export default {
 }
 
 .active-contact {
-  background-color: #007bff;
+  background-color: #f5f5f5;
   color: #fff;
   font-weight: bold;
 }
 
 .active-contact .contact-name {
-  color: #fff;
+  color: #3f3f3f;
 }
 
 .profile-photo {

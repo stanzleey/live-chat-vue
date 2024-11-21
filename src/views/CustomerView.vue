@@ -13,9 +13,6 @@
       <div class="chat-messages-container" v-if="!isMobileView || showChatOnly">
         <ChatMessages :messages="chatMessages" />
         <!-- Trigger Profile Popup -->
-        <!-- <button class="view-profile-btn" @click="showProfilePopup = true">
-          View Profile
-        </button> -->
       </div>
     </div>
 
@@ -48,9 +45,20 @@ export default {
   data() {
     return {
       contacts: [
-        { id: 1, name: "Diana", lastActivityTime: "12:30 PM" },
-        { id: 2, name: "Jane Smith", lastActivityTime: "3:45 PM" },
-        { id: 3, name: "Alice Brown", lastActivityTime: "5:00 PM" },
+        { id: 1, name: "Diana", message: "Halo", lastMessageTime: "12:30 PM" },
+        {
+          id: 2,
+          name: "Jane Smith",
+          message: "Selamat pagi",
+          lastMessageTime: "12:30 PM",
+        },
+        {
+          id: 3,
+          name: "Alice Brown",
+          message: "Hati-hati",
+          lastMessageTime: "12:30 PM",
+          profilePhoto: "profil 1.jpg",
+        },
       ],
       messages: {
         1: [
@@ -208,8 +216,24 @@ export default {
   justify-content: center;
   height: 100%;
   font-size: 1.5rem;
+  margin-left: 15px;
 }
-
+@media screen and (max-width: 768px) {
+  .contact-list {
+    width: 100%; /* Full width on mobile */
+    height: 100vh; /* Full height on mobile */
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    background-color: white;
+    transform: translateX(0);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  .contact-list.hidden {
+    transform: translateX(-100%); /* Hide the contact list */
+  }
+}
 /* Responsive Styles for Mobile */
 @media screen and (max-width: 768px) {
   .app-container {
@@ -218,18 +242,23 @@ export default {
 
   .contact-list {
     width: 100%; /* Full width on mobile */
-    height: 300px; /* Limit height for contact list on mobile */
+    height: 250px; /* Limit height for contact list on mobile */
     overflow-y: auto;
   }
 
   .chat-section {
     width: 100%; /* Full width on mobile */
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 250px); /* Adjust height based on contact list */
   }
 
   .chat-messages-container {
-    height: calc(
-      100vh - 180px
-    ); /* Adjust height of chat messages container to fit screen */
+    flex-grow: 1; /* Allow the messages container to expand */
+    overflow-y: auto; /* Enable scrolling for long messages */
+    padding: 10px; /* Add padding for better spacing */
+    background-color: #f9f9f9; /* Match the background color */
+    border-radius: 5px;
   }
 
   .chat-messages {
