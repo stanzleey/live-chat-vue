@@ -1,9 +1,14 @@
 <template>
-  <div class="contact-list-container">
+  <div
+    class="flex flex-col h-screen px-3 py-4 bg-transparent w-full max-w-md mx-auto overflow-hidden relative"
+  >
     <!-- Chat Title with Add Chat Button -->
-    <div class="chat-header">
-      <h3 class="chat-title">Chat</h3>
-      <button @click="addChat" class="add-chat-button">
+    <div class="flex items-center justify-between mb-4">
+      <h3 class="text-lg font-semibold text-gray-800">Chat</h3>
+      <button
+        @click="addChat"
+        class="bg-blue-500 text-white text-sm px-3 py-2 rounded-lg transition hover:bg-blue-700"
+      >
         <i class="fas fa-plus"></i>
       </button>
     </div>
@@ -13,45 +18,73 @@
       type="text"
       v-model="searchTerm"
       placeholder="Search contacts..."
-      class="search-bar mt-2"
+      class="w-full px-3 py-2 mb-4 border border-gray-300 rounded-lg text-sm shadow-inner focus:outline-none focus:ring-2 focus:ring-blue-400"
     />
 
-    <!-- Button Group below the Search Bar -->
-    <div class="button-group">
-      <button class="action-button" @click="actionOne">Semua</button>
-      <button class="action-button" @click="actionTwo">Belum dibaca</button>
-      <button class="action-button" @click="actionThree">Group</button>
+    <!-- Button Group -->
+    <div class="flex items-center space-x-2 mb-4">
+      <button
+        class="bg-white text-black text-sm px-3 py-2 rounded-lg transition hover:bg-blue-700 hover:text-white"
+      >
+        Semua
+      </button>
+      <button
+        class="bg-white text-black text-sm px-3 py-2 rounded-lg transition hover:bg-blue-700 hover:text-white"
+      >
+        Belum dibaca
+      </button>
+      <button
+        class="bg-white text-black text-sm px-3 py-2 rounded-lg transition hover:bg-blue-700 hover:text-white"
+      >
+        Group
+      </button>
     </div>
 
     <!-- Contact List -->
-    <div class="contact-list">
+    <div class="flex-1 overflow-y-auto">
       <ul>
         <li
           v-for="contact in filteredContacts"
           :key="contact.id"
           @click="selectContact(contact)"
           :class="[
-            'contact-item',
-            { 'active-contact': activeContactId === contact.id },
+            'flex items-center px-4 py-3 bg-white rounded-lg transition mb-2 border-b border-gray-200 hover:bg-blue-100 cursor-pointer',
+            {
+              'bg-gray-100 font-bold text-white':
+                activeContactId === contact.id,
+            },
           ]"
         >
           <!-- Profile Photo -->
           <img
             :src="contact.profilePhoto"
             alt="Profile Photo"
-            class="profile-photo"
+            class="w-10 h-10 rounded-full mr-3 border-2 border-gray-300"
           />
 
           <!-- Contact Info -->
-          <div class="contact-info">
-            <span class="contact-name">{{ contact.name }}</span>
-            <span class="contact-message">{{ contact.message }}</span>
-            <span class="contact-time">{{ contact.lastMessageTime }}</span>
+          <div class="flex flex-col flex-1 relative">
+            <span class="font-medium text-sm text-gray-800 truncate">{{
+              contact.name
+            }}</span>
+            <span class="text-xs text-gray-500 mt-1 truncate">{{
+              contact.message
+            }}</span>
+            <span class="absolute top-0 right-0 text-xs text-gray-400">{{
+              contact.lastMessageTime
+            }}</span>
           </div>
         </li>
       </ul>
     </div>
-    <!-- Add Message Button as Floating Icon -->
+
+    <!-- Add Message Floating Button -->
+    <button
+      @click="addMessage"
+      class="absolute bottom-4 right-4 w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center text-lg shadow-lg hover:bg-blue-700 transition"
+    >
+      +
+    </button>
   </div>
 </template>
 
@@ -97,253 +130,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.contact-info {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  position: relative;
-}
-.contact-message {
-  font-size: 12px;
-  color: #555;
-  margin-top: 4px;
-  white-space: nowrap; /* Prevent wrapping */
-  overflow: hidden; /* Hide overflow text */
-  text-overflow: ellipsis; /* Add ellipsis (...) for overflow text */
-}
-.contact-time {
-  font-size: 11px;
-  color: #888;
-  position: absolute;
-  top: 0;
-  right: 0;
-  white-space: nowrap;
-}
-
-.chat-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: #333;
-  margin: 0;
-}
-
-.chat-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
-
-.add-chat-button {
-  background-color: #007bff;
-  color: white;
-  font-size: 14px;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.add-chat-button:hover {
-  background-color: #0056b3;
-}
-.contact-list-container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  padding: 12px;
-  background-color: transparent;
-  width: 100%;
-  max-width: 400px;
-  margin: auto;
-  overflow: hidden;
-  position: relative;
-}
-
-.search-bar {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 16px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 14px;
-  background-color: #fff;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
-}
-
-.button-group {
-  align-items: center;
-  display: flex;
-  justify-content: flex-start;
-  margin-bottom: 16px;
-  gap: 8px;
-}
-
-.action-button {
-  background-color: white;
-  font-size: 14px;
-  color: black;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 12px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  white-space: nowrap;
-}
-
-.action-button:hover {
-  background-color: #0056b3;
-}
-
-.contact-list {
-  flex: 1;
-}
-
-.contact-list ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.contact-item {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  background-color: #fff;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-.contact-item:hover {
-  background-color: #e9f5ff;
-}
-
-.active-contact {
-  background-color: #f5f5f5;
-  color: #fff;
-  font-weight: bold;
-}
-
-.active-contact .contact-name {
-  color: #3f3f3f;
-}
-
-.profile-photo {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  margin-right: 12px;
-  border: 2px solid #ddd;
-}
-
-.contact-info {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.contact-name {
-  font-weight: 600;
-  font-size: 14px;
-  color: #333;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.contact-actions {
-  display: flex;
-  align-items: center;
-}
-
-.read-receipt {
-  color: #007bff;
-}
-
-.floating-add-message-button {
-  position: absolute;
-  bottom: 16px;
-  right: 16px;
-  width: 50px;
-  height: 50px;
-  background-color: #007bff;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  border: none;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.floating-add-message-button:hover {
-  background-color: #0056b3;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .contact-list-container {
-    padding: 10px;
-  }
-
-  .profile-photo {
-    width: 35px;
-    height: 35px;
-  }
-
-  .contact-name {
-    font-size: 12px;
-  }
-
-  .action-button {
-    font-size: 12px;
-    padding: 6px 10px;
-  }
-
-  .floating-add-message-button {
-    width: 45px;
-    height: 45px;
-    font-size: 20px;
-  }
-}
-
-@media (max-width: 480px) {
-  .contact-item {
-    padding: 8px;
-  }
-
-  .profile-photo {
-    width: 30px;
-    height: 30px;
-  }
-
-  .contact-name {
-    font-size: 17px;
-  }
-
-  .floating-add-message-button {
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
-  }
-
-  .action-button {
-    font-size: 15px;
-  }
-  .contact-message {
-    font-size: 16px;
-  }
-  .contact-time {
-    font-size: 14px;
-  }
-}
-</style>
