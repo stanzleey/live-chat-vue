@@ -231,6 +231,13 @@ i {
 }
 
 @media (max-width: 768px) {
+  .menu-item i {
+    font-size: 24px; /* Ukuran ikon diperbesar */
+    margin: 0 8px;
+  }
+  .menu-item {
+    padding: 8px 12px; /* Tambahkan padding agar ikon lebih proporsional */
+  }
   .tooltip {
     display: none;
   }

@@ -59,6 +59,27 @@ export default {
           lastMessageTime: "12:30 PM",
           profilePhoto: "profil 1.jpg",
         },
+        {
+          id: 4,
+          name: "Bambang",
+          message: "Pagi gaes",
+          lastMessageTime: "14:30 PM",
+          profilePhoto: "profil 1.jpg",
+        },
+        {
+          id: 5,
+          name: "Bambang",
+          message: "Pagi gaes",
+          lastMessageTime: "14:30 PM",
+          profilePhoto: "profil 1.jpg",
+        },
+        {
+          id: 6,
+          name: "Bambang",
+          message: "Pagi gaes",
+          lastMessageTime: "14:30 PM",
+          profilePhoto: "profil 1.jpg",
+        },
       ],
       messages: {
         1: [
@@ -229,6 +250,7 @@ export default {
     background-color: white;
     transform: translateX(0);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    overflow-y: auto;
   }
   .contact-list.hidden {
     transform: translateX(-100%); /* Hide the contact list */
@@ -238,11 +260,12 @@ export default {
 @media screen and (max-width: 768px) {
   .app-container {
     flex-direction: column;
+    margin-left: 5px;
   }
 
   .contact-list {
     width: 100%; /* Full width on mobile */
-    height: 250px; /* Limit height for contact list on mobile */
+    height: 610px; /* Limit height for contact list on mobile */
     overflow-y: auto;
   }
 
@@ -256,9 +279,9 @@ export default {
   .chat-messages-container {
     flex-grow: 1; /* Allow the messages container to expand */
     overflow-y: auto; /* Enable scrolling for long messages */
-    padding: 10px; /* Add padding for better spacing */
-    background-color: #f9f9f9; /* Match the background color */
+    background-color: #fdfdfd; /* Match the background color */
     border-radius: 5px;
+    width: 100%;
   }
 
   .chat-messages {

@@ -8,6 +8,21 @@
         style="background: #f5f5f5"
       >
         <div class="flex items-center space-x-3">
+          <!-- Back Button (visible only on mobile screens) -->
+          <button
+            class="md:hidden text-black text-lg focus:outline-none hover:text-blue-300"
+            @click="navigateToContactList"
+          >
+            <i class="fas fa-arrow-left"></i>
+          </button>
+
+          <!-- Profile Picture -->
+          <img
+            src="https://via.placeholder.com/40"
+            alt="Profile Picture"
+            class="w-10 h-10 rounded-full border border-gray-300 object-cover"
+          />
+          <!-- Username -->
           <h1 class="text-black text-lg md:text-2xl font-thin cursor-pointer">
             {{ username }}
           </h1>
@@ -99,23 +114,24 @@
           </div>
         </div>
       </div>
+
       <footer
         class="bg-white p-3 flex items-center border-t border-gray-200 shadow-md space-x-3"
       >
         <button
-          class="text-gray-500 hover:text-blue-500 transition duration-300"
+          class="text-gray-500 hover:text-blue-500 transition duration-300 responsive-margin"
           @click="handleClick"
         >
           <i class="fas fa-smile text-base"></i>
         </button>
         <button
-          class="text-gray-500 hover:text-blue-500 transition duration-300"
+          class="text-gray-500 hover:text-blue-500 transition duration-300 responsive-margin"
           @click="handleClick"
         >
           <i class="fas fa-paperclip text-base"></i>
         </button>
         <button
-          class="text-gray-500 hover:text-blue-500 transition duration-300"
+          class="text-gray-500 hover:text-blue-500 transition duration-300 responsive-margin"
           @click="handleClick"
         >
           <i class="fas fa-camera text-base"></i>
@@ -151,41 +167,17 @@
           v-model="newMessage"
           type="text"
           placeholder="Type a message..."
-          class="flex-grow bg-gray-100 border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm md:text-base transition duration-150 ease-in-out w-full max-w-screen-md"
+          class="flex-grow bg-gray-100 border border-gray-300 p-2 rounded-lg focus:ring-2 focus:ring-blue-500 text-sm md:text-base transition duration-150 ease-in-out w-full max-w-screen-md responsive-margin"
           @keyup.enter="sendMessage"
         />
 
         <button
           @click="sendMessage"
-          class="ml-2 bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out text-sm"
+          class="ml-2 bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 transition duration-150 ease-in-out text-sm responsive-margin"
         >
           <i class="fas fa-paper-plane"></i>
         </button>
       </footer>
-      <!-- Contact Profile Popup -->
-      <div
-        v-if="showProfile"
-        class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center"
-      >
-        <div class="bg-white p-5 rounded-lg shadow-lg w-80">
-          <h2 class="text-lg font-bold mb-3">Contact Profile</h2>
-          <p class="text-gray-700 mb-3 text-sm">
-            <strong>Name:</strong> {{ contactProfile.name }}
-          </p>
-          <p class="text-gray-700 mb-3 text-sm">
-            <strong>Phone:</strong> {{ contactProfile.phone }}
-          </p>
-          <p class="text-gray-700 mb-3 text-sm">
-            <strong>Email:</strong> {{ contactProfile.email }}
-          </p>
-          <button
-            @click="showProfile = false"
-            class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm"
-          >
-            Close
-          </button>
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -203,15 +195,17 @@ export default {
     const newMessage = ref("");
     const currentUserId = ref("user_3");
     const chatContainer = ref(null);
+
     const toggleProfileMenu = () => {
       isMenuOpen.value = !isMenuOpen.value;
     };
+
     const contactProfile = ref({
       name: "John Doe",
       phone: "+1234567890",
       email: "john.doe@example.com",
     });
-    // In the sendMessage function:
+
     const sendMessage = () => {
       if (newMessage.value.trim()) {
         messages.value.push({
@@ -241,7 +235,6 @@ export default {
 
         newMessage.value = "";
         nextTick(() => {
-          // Only scroll if chatContainer is defined
           if (chatContainer.value) {
             chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
           }
@@ -249,7 +242,6 @@ export default {
       }
     };
 
-    // In the receiveMessage function:
     const receiveMessage = (message) => {
       messages.value.push({
         message_id: `msg_${messages.value.length + 1}`,
@@ -263,7 +255,6 @@ export default {
         status: "received",
       });
       nextTick(() => {
-        // Only scroll if chatContainer is defined
         if (chatContainer.value) {
           chatContainer.value.scrollTop = chatContainer.value.scrollHeight;
         }
@@ -289,7 +280,6 @@ export default {
       console.log("Button clicked!");
     };
 
-    // Ensure the function is returned from setup
     const shouldShowDate = (index) => {
       if (index === 0) return true;
       const currentMessageDate = messages.value[index].date;
@@ -304,11 +294,14 @@ export default {
 
     const formatTime = (time) => time;
 
+    const navigateToContactList = () => {
+      window.location.href = "/chat"; // Update this route if using Vue Router or a different structure
+    };
+
     onMounted(() => {
       fetchMessages();
 
-      // Inisialisasi WebSocket untuk menerima pesan balasan
-      const ws = new WebSocket("ws://localhost:3001"); // Port sesuai dengan WebSocket server
+      const ws = new WebSocket("ws://localhost:3001");
 
       ws.onmessage = (event) => {
         const messageData = JSON.parse(event.data);
@@ -323,7 +316,6 @@ export default {
         });
       };
 
-      // Dummy data awal
       messages.value = [
         {
           message_id: "msg_1",
@@ -351,7 +343,7 @@ export default {
       sendMessage,
       currentUserId,
       handleClick,
-      shouldShowDate, // Make sure this is returned
+      shouldShowDate,
       formatDate,
       formatTime,
       chatContainer,
@@ -359,7 +351,61 @@ export default {
       contactProfile,
       isMenuOpen,
       toggleProfileMenu,
+      navigateToContactList, // Ensure this is returned
     };
   },
 };
 </script>
+
+<style>
+@media screen and (max-width: 768px) {
+  .responsive-margin {
+    margin-bottom: 60px;
+    margin-right: 10px; /* Add horizontal margin for spacing between icons */
+  }
+
+  footer button {
+    margin-right: 10px; /* Adds spacing between the buttons */
+  }
+}
+@media (max-width: 768px) {
+  /* .flex {
+    flex-direction: column;
+  } */
+
+  .text-lg {
+    font-size: 1.25rem;
+  }
+
+  .md\:text-2xl {
+    font-size: 1.5rem;
+  }
+
+  .text-base {
+    font-size: 1rem;
+  }
+
+  .max-w-screen-xl {
+    max-width: 100%;
+  }
+
+  .max-w-screen-md {
+    max-width: 100%;
+  }
+
+  .responsive-margin {
+    margin-left: 20px;
+    margin-right: 30px;
+  }
+
+  .w-full {
+    width: 100%;
+  }
+}
+
+@media (min-width: 769px) {
+  .flex {
+    flex-direction: row;
+  }
+}
+</style>

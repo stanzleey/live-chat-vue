@@ -327,7 +327,7 @@ export default {
   }
 
   .contact-name {
-    font-size: 11px;
+    font-size: 17px;
   }
 
   .floating-add-message-button {
@@ -337,7 +337,13 @@ export default {
   }
 
   .action-button {
-    font-size: 10px;
+    font-size: 15px;
+  }
+  .contact-message {
+    font-size: 16px;
+  }
+  .contact-time {
+    font-size: 14px;
   }
 }
 </style>
