@@ -361,13 +361,16 @@ export default {
 @media screen and (max-width: 768px) {
   .responsive-margin {
     margin-bottom: 60px;
-    margin-right: 10px; /* Add horizontal margin for spacing between icons */
+    margin-right: 10px;
+    /* Add horizontal margin for spacing between icons */
   }
 
   footer button {
-    margin-right: 10px; /* Adds spacing between the buttons */
+    margin-right: 10px;
+    /* Adds spacing between the buttons */
   }
 }
+
 @media (max-width: 768px) {
   /* .flex {
     flex-direction: column;
