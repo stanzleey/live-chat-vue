@@ -372,10 +372,6 @@ export default {
 }
 
 @media (max-width: 768px) {
-  /* .flex {
-    flex-direction: column;
-  } */
-
   .text-lg {
     font-size: 1.25rem;
   }

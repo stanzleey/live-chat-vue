@@ -24,17 +24,32 @@
     <!-- Button Group -->
     <div class="flex items-center space-x-2 mb-4">
       <button
-        class="bg-white text-black text-sm px-3 py-2 rounded-lg transition hover:bg-blue-700 hover:text-white"
+        @click="setActiveMenu('semua')"
+        :class="{
+          'bg-blue-500 text-white': activeMenu === 'semua',
+          'bg-white text-black': activeMenu !== 'semua',
+        }"
+        class="text-sm px-3 py-2 rounded-lg transition hover:bg-blue-700 hover:text-white"
       >
         Semua
       </button>
       <button
-        class="bg-white text-black text-sm px-3 py-2 rounded-lg transition hover:bg-blue-700 hover:text-white"
+        @click="setActiveMenu('belum-dibaca')"
+        :class="{
+          'bg-blue-500 text-white': activeMenu === 'belum-dibaca',
+          'bg-white text-black': activeMenu !== 'belum-dibaca',
+        }"
+        class="text-sm px-3 py-2 rounded-lg transition hover:bg-blue-700 hover:text-white"
       >
         Belum dibaca
       </button>
       <button
-        class="bg-white text-black text-sm px-3 py-2 rounded-lg transition hover:bg-blue-700 hover:text-white"
+        @click="setActiveMenu('group')"
+        :class="{
+          'bg-blue-500 text-white': activeMenu === 'group',
+          'bg-white text-black': activeMenu !== 'group',
+        }"
+        class="text-sm px-3 py-2 rounded-lg transition hover:bg-blue-700 hover:text-white"
       >
         Group
       </button>
@@ -101,6 +116,7 @@ export default {
     return {
       activeContactId: null,
       searchTerm: "",
+      activeMenu: "semua", // Default active menu
     };
   },
   computed: {
@@ -118,14 +134,8 @@ export default {
     addMessage() {
       alert("Add message functionality here.");
     },
-    actionOne() {
-      alert("Button 1 clicked");
-    },
-    actionTwo() {
-      alert("Button 2 clicked");
-    },
-    actionThree() {
-      alert("Button 3 clicked");
+    setActiveMenu(menu) {
+      this.activeMenu = menu;
     },
   },
 };

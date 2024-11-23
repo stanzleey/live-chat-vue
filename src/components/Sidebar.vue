@@ -86,10 +86,25 @@
           >
         </router-link>
       </li>
+      <li>
+        <router-link
+          to="/"
+          class="group flex items-center justify-center w-full py-2 text-blue-600 hover:bg-blue-50 transition mt-1"
+        >
+          <i
+            :class="['fas fa-sign-out-alt', isMobile ? 'text-3xl' : 'text-xl']"
+          ></i>
+          <span
+            v-if="!isMobile"
+            class="absolute left-14 bg-gray-800 text-white text-xs py-1 px-2 rounded opacity-0 group-hover:opacity-100 transition"
+            >Logout</span
+          >
+        </router-link>
+      </li>
     </ul>
 
     <ul :class="[isMobile ? 'hidden' : 'flex mt-auto flex-col']">
-      <li>
+      <!-- <li>
         <router-link
           to="/"
           class="group flex items-center justify-center w-full py-2 text-blue-600 hover:bg-blue-50 transition"
@@ -103,7 +118,7 @@
             >Logout</span
           >
         </router-link>
-      </li>
+      </li> -->
     </ul>
   </div>
 </template>
