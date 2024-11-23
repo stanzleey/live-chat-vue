@@ -5,7 +5,7 @@
     >
       <header
         class="w-full p-3 flex items-center justify-between border-b border-gray-200"
-        style="background: #ff0202"
+        style="background: #f5f5f5"
       >
         <div class="flex items-center space-x-3">
           <!-- Back Button (visible only on mobile screens) -->
