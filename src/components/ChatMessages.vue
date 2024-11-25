@@ -116,22 +116,22 @@
       </div>
 
       <footer
-        class="bg-white p-3 flex items-center border-t border-gray-200 shadow-md space-x-3"
+        class="bg-white p-3 flex items-center border-t border-gray-200 shadow-md space-x-3 mb-16 sm:mb-0"
       >
         <button
-          class="text-gray-500 hover:text-blue-500 transition duration-300 responsive-margin"
+          class="ml-4 text-gray-500 hover:text-blue-500 transition duration-300 responsive-margin"
           @click="handleClick"
         >
           <i class="fas fa-smile text-base"></i>
         </button>
         <button
-          class="text-gray-500 hover:text-blue-500 transition duration-300 responsive-margin"
+          class="ml-4 text-gray-500 hover:text-blue-500 transition duration-300 responsive-margin"
           @click="handleClick"
         >
           <i class="fas fa-paperclip text-base"></i>
         </button>
         <button
-          class="text-gray-500 hover:text-blue-500 transition duration-300 responsive-margin"
+          class="ml-4 text-gray-500 hover:text-blue-500 transition duration-300 responsive-margin"
           @click="handleClick"
         >
           <i class="fas fa-camera text-base"></i>
@@ -357,7 +357,7 @@ export default {
 };
 </script>
 
-<style>
+<!-- <style>
 @media screen and (max-width: 768px) {
   .responsive-margin {
     margin-bottom: 60px;
@@ -407,4 +407,4 @@ export default {
     flex-direction: row;
   }
 }
-</style>
+</style> -->

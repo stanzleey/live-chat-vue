@@ -66,20 +66,6 @@ export default {
           lastMessageTime: "14:30 PM",
           profilePhoto: "profil 1.jpg",
         },
-        {
-          id: 5,
-          name: "Bambang",
-          message: "Pagi gaes",
-          lastMessageTime: "14:30 PM",
-          profilePhoto: "profil 1.jpg",
-        },
-        {
-          id: 6,
-          name: "Bambang",
-          message: "Pagi gaes",
-          lastMessageTime: "14:30 PM",
-          profilePhoto: "profil 1.jpg",
-        },
       ],
       messages: {
         1: [
@@ -242,19 +228,19 @@ export default {
 }
 @media screen and (max-width: 768px) {
   .contact-list {
-    width: 100%; /* Full width on mobile */
-    height: 100vh; /* Full height on mobile */
+    width: 100%;
+    height: 100vh;
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 1000;
+    /* z-index: 1000; */
     background-color: white;
     transform: translateX(0);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 10px rgba(150, 135, 135, 0.3);
     overflow-y: auto;
   }
   .contact-list.hidden {
-    transform: translateX(-100%); /* Hide the contact list */
+    transform: translateX(-100%);
   }
 }
 /* Responsive Styles for Mobile */

@@ -4,7 +4,8 @@
   >
     <!-- Chat Title with Add Chat Button -->
     <div class="flex items-center justify-between mb-4">
-      <h3 class="text-lg font-semibold text-gray-800">Chat</h3>
+      <img :src="chatIcon" alt="Chat Icon" class="w-15 h-10" />
+      <!-- <h3 class="text-lg font-semibold text-gray-800">Chat</h3> -->
       <button
         @click="addChat"
         class="bg-blue-500 text-white text-sm px-3 py-2 rounded-lg transition hover:bg-blue-700"
@@ -117,6 +118,7 @@ export default {
       activeContactId: null,
       searchTerm: "",
       activeMenu: "semua", // Default active menu
+      chatIcon: require("@/assets/images/maxnet.png"), // Memuat gambar
     };
   },
   computed: {
