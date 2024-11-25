@@ -233,10 +233,8 @@ export default {
     position: fixed;
     top: 0;
     left: 0;
-    /* z-index: 1000; */
     background-color: white;
     transform: translateX(0);
-    box-shadow: 0 4px 10px rgba(150, 135, 135, 0.3);
     overflow-y: auto;
   }
   .contact-list.hidden {
